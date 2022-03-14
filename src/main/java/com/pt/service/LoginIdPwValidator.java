@@ -18,6 +18,9 @@ public class LoginIdPwValidator implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String insertedId) throws UsernameNotFoundException {
         Optional<Users> userInfo = userRepository.findByUsername(insertedId);
+        if(userInfo.isPresent()){
+            System.out.println(userInfo.get().getUsername());
+        }
         return userInfo.orElse(null);
     }
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="ko">
+
+<head th:replace="fragments/default/head :: headFragment"></head>
+<header th:replace="fragments/default/header :: headerFragment"></header>
+<main>
+    <div layout:fragment="content"></div>
+</main>
+
+<footer th:replace="fragments/default/footer :: footerFragment"></footer>
+
+
+<script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

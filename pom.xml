@@ -32,6 +32,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<version>2.6.3</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -54,6 +60,26 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>5.3.14</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4 -->
+		<!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5 -->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+			<version>3.0.4.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect -->
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
 
 
 	</dependencies>

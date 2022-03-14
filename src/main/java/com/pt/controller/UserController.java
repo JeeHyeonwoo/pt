@@ -3,6 +3,7 @@ package com.pt.controller;
 import com.pt.model.Users;
 import com.pt.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ public class UserController {
 
     @GetMapping("/signup")
     public String signup(){
-        return "/signup";
+        return "signup";
     }
 
     @PostMapping("/signup")
@@ -37,4 +38,11 @@ public class UserController {
         }
         return "redirect:/";
     }
+/*
+    @GetMapping("/view/template_add")
+    public String dashboard(@AuthenticationPrincipal Users users) throws Exception{
+
+        System.out.println(users.getUsername());
+        return "/template_add";
+    }*/
 }

@@ -3,12 +3,14 @@ package com.pt.model;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Setter
 @Entity
@@ -20,7 +22,7 @@ public class Users implements UserDetails {
     private String username;
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name ="user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -45,21 +47,21 @@ public class Users implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

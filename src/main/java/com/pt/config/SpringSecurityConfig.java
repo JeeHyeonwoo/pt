@@ -1,8 +1,8 @@
 package com.pt.config;
 
 import com.pt.service.LoginIdPwValidator;
-import com.pt.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,34 +20,42 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final LoginIdPwValidator loginIdPwValidator;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.authorizeRequests()
-                .antMatchers("/board/**").authenticated()
-                    .anyRequest().permitAll()
-                    .and()
-                .formLogin()
-                    .loginPage("/user/login")
-                    .defaultSuccessUrl("/", true)
-                .failureForwardUrl("/user/login")
-                    .permitAll()
-                    .and()
-                .logout();
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/static/asserts/**", "/static/css/**");
-    }
-
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(loginIdPwValidator);
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/board/**").hasRole("USER")
+                    .anyRequest().permitAll()
+                    .and()
+                .formLogin()
+                    .loginPage("/user/login")
+                    .loginProcessingUrl("/login")
+                    .defaultSuccessUrl("/")
+                .failureUrl("/user/login")
+                    .permitAll()
+                    .and()
+                .logout()
+                    .logoutSuccessUrl("/user/login")
+                    .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID", "Idea-61b2fb57")
+                    .permitAll();
     }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/asserts/**", "/css/**");
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception{
+        auth.userDetailsService(loginIdPwValidator).passwordEncoder(passwordEncoder());
+    }
+
 }
