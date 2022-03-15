@@ -7,9 +7,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.*;
 
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Setter
@@ -32,8 +31,15 @@ public class Users implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        Set<GrantedAuthority> role = new HashSet<>();
+        for(Role r : authorities){
+            role.add(new SimpleGrantedAuthority("ROLE_" + r.getAuthority()));
+        }
+        return role;
     }
+
+    @OneToMany
+    private List<Board> boards = new ArrayList<>();
 
     @Override
     public String getPassword() {

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns:t="http://www.w3.org/1999/html"
       lang="ko">
 <head>
     <meta charset="UTF-8"><!--
@@ -14,11 +14,13 @@
     <span sec:authentication="name"></span>님 환영합니다.<br>
     ID: <span sec:authentication="name"></span><br>
     소유 권한: <span sec:authentication="principal.authorities"></span> <br>
-    <form th:action="@{/logout}" method="post"><!--
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+    <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
     </form>
 </div>
-
+<div>
+<a th:href="@{/board/list}"> 게시판 이동 </a>
+</div>
 </body>
+
 </html>

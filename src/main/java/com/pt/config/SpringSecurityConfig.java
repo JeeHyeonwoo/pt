@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -31,7 +32,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/admin/**").hasRole("ADMIN")
-                    .antMatchers("/board/**").hasRole("USER")
                     .anyRequest().permitAll()
                     .and()
                 .formLogin()
@@ -44,7 +44,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .logoutSuccessUrl("/user/login")
                     .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID", "Idea-61b2fb57")
+                .deleteCookies("JSESSIONID")
                     .permitAll();
     }
 
@@ -58,4 +58,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(loginIdPwValidator).passwordEncoder(passwordEncoder());
     }
 
+    @Bean
+    public SpringSecurityDialect springSecurityDialect() {
+        return new SpringSecurityDialect();
+    }
 }
