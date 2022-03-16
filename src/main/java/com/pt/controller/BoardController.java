@@ -8,6 +8,7 @@ import com.pt.repository.UserRepository;
 import com.pt.service.BoardService;
 import com.pt.service.FileService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/board")
 @Controller
+@Log
 public class BoardController {
     private final UserRepository userRepository;
     private final FileService fileService;
@@ -32,6 +34,15 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(Model model, HttpServletRequest request){
+
+        Board board = boardRepository.findById(9L).get();
+        List<FileDTO> files = board.getFiles();
+        for(FileDTO fileDTO: files) {
+            log.info( "***" + fileDTO.getPath() + fileDTO.getFilename());
+        }
+        model.addAttribute("board" , board);
+
+        log.info("**" + board.getTitle());
         return "board/list";
     }
 
@@ -62,7 +73,9 @@ public class BoardController {
     }
 
     @GetMapping("/view")
-    public String view(@PathVariable Long id){
+    public String view(Model model){
+        Board board = boardRepository.findById(1L).get();
+        model.addAttribute("board" , board);
         return "/board/view";
     }
 
