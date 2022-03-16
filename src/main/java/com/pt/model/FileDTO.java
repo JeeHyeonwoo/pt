@@ -1,8 +1,6 @@
 package com.pt.model;
 
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -13,8 +11,6 @@ public class FileDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String path;
-/*
-    @ManyToOne
-    @JoinColumn(name = "boardId")
-    private Board board;*/
+    private String filename;
+
 }

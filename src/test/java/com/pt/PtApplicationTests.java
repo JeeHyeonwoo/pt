@@ -23,21 +23,65 @@ import java.util.Set;
 
 @SpringBootTest
 class PtApplicationTests {
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private BoardRepository boardRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private BoardRepository boardRepository;
 
-	@Test
-	void test() {
-		Board board = new Board();
-		board.setTitle("테스트");
-		board.setContents("테스트 컨텐츠");
-		board.setUser(userRepository.findByUsername("test").orElse(null));
-		board.setCreateDate(new Date());
-		boardRepository.save(board);
-	}
+    @Test
+    void test() {
+        Board board = new Board();
+        board.setTitle("테스트");
+        board.setContents("테스트 컨텐츠");
+        board.setUser(userRepository.findByUsername("test").orElse(null));
+        board.setCreateDate(new Date());
+        boardRepository.save(board);
+    }
 
+    private String mHero;
 
+    public synchronized void batman(){
+        mHero = "batman";
+
+        try {
+            long sleep = (long) (Math.random() * 100);
+            Thread.sleep(sleep);
+            if ("batman".equals(mHero) == false) {
+                System.out.println("synchronization broken");
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void superman() {
+        mHero = "superman";
+        try {
+            long sleep = (long) (Math.random() * 100);
+            Thread.sleep(sleep);
+            if ("superman".equals(mHero) == false) {
+                System.out.println("synchronization broken");
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void main() throws InterruptedException {
+        System.out.println("Test start!");
+        new Thread(() -> {
+            for (int i = 0; i < 1000000; i++) {
+                batman();
+            }
+        }).start();
+        new Thread(() -> {
+            for (int i = 0; i < 1000000; i++) {
+                superman();
+            }
+        }).start();
+        System.out.println("Test end!");
+
+    }
 
 }

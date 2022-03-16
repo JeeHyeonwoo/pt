@@ -1,5 +1,6 @@
 package com.pt.model;
 
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,7 +12,7 @@ import java.util.*;
 
 import java.util.stream.Collectors;
 
-@Setter
+@Data
 @Entity
 @NoArgsConstructor
 public class Users implements UserDetails {

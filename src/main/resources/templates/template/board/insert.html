@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>board</title>
 </head>
 <body>
-
+<div class="container">
+    <h2>게시판 등록</h2>
+    <form method="post" action="/board/insert" enctype="multipart/form-data">
+        <table class="board_detail">
+            <tr>
+                <td>제목</td>
+                <td><input type="text" id="title" name="title"></td>
+            </tr>
+            <tr>
+                <td>게시물</td>
+                <td colspan="2">
+                    <textarea id="contents" name="contents"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>파일</td>
+                <td colspan="2">
+                    <input type="file" name="uploadFile">
+                </td>
+            </tr>
+        </table>
+        <input type="submit" id="submit" value="저장" class="btn">
+    </form>
+</div>
 </body>
 </html>

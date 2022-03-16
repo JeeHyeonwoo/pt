@@ -1,6 +1,7 @@
 package com.pt.model;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,17 +17,22 @@ public class Board {
     private Long id;
     private String title;
     private String contents;
+
+    @CreatedDate
+    @Column(updatable = false)
     private Date createDate;
     private int view;
 
     @ManyToOne
     @JoinColumn(name = "userid")
     private Users user;
-/*
 
-    @OneToMany
-    private List<FileDTO> files = new ArrayList<FileDTO>();
-*/
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "board_id", nullable = false)
+    private List<FileDTO> files = new ArrayList<>();
 
+    public void addFile(FileDTO fileDTO) {
+        this.files.add(fileDTO);
+    }
 
 }
