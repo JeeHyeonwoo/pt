@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Table(name = "board")
 public class Board {
 
     @Id
@@ -27,8 +28,7 @@ public class Board {
     @JoinColumn(name = "userid")
     private Users user;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "board_id", nullable = false)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FileDTO> files = new ArrayList<>();
 
     public void addFile(FileDTO fileDTO) {

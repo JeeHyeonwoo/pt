@@ -13,4 +13,7 @@ public class FileDTO {
     private String path;
     private String filename;
 
+    @ManyToOne
+    @JoinColumn(name= "board_id")
+    private Board board;
 }

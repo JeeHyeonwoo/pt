@@ -10,6 +10,7 @@ import com.pt.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,6 +53,7 @@ public class BoardController {
                 File file = new File(fileDTO.getPath() + fileDTO.getFilename());
                 multipartFile.transferTo(file);
                 board.addFile(fileDTO);
+                fileDTO.setBoard(board);
             }
         }
         boardRepository.save(board);
