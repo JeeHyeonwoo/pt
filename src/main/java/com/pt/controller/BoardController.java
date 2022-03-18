@@ -4,22 +4,18 @@ import com.pt.model.Board;
 import com.pt.model.FileDTO;
 import com.pt.model.Users;
 import com.pt.repository.BoardRepository;
-import com.pt.repository.UserRepository;
-import com.pt.service.BoardService;
 import com.pt.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -27,22 +23,15 @@ import java.util.List;
 @Controller
 @Log
 public class BoardController {
-    private final UserRepository userRepository;
     private final FileService fileService;
-    private final BoardService boardService;
     private final BoardRepository boardRepository;
 
     @GetMapping("/list")
-    public String list(Model model, HttpServletRequest request){
+    public String list(Model model, Pageable pageable){
+        List<Board> boards = boardRepository.findAll(pageable).getContent();
 
-        Board board = boardRepository.findById(9L).get();
-        List<FileDTO> files = board.getFiles();
-        for(FileDTO fileDTO: files) {
-            log.info( "***" + fileDTO.getPath() + fileDTO.getFilename());
-        }
-        model.addAttribute("board" , board);
+        model.addAttribute("boards" , boards);
 
-        log.info("**" + board.getTitle());
         return "board/list";
     }
 
@@ -73,8 +62,8 @@ public class BoardController {
     }
 
     @GetMapping("/view")
-    public String view(Model model){
-        Board board = boardRepository.findById(1L).get();
+    public String view(@RequestParam Long id, Model model){
+        Board board = boardRepository.findById(id).get();
         model.addAttribute("board" , board);
         return "/board/view";
     }
