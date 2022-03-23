@@ -1,6 +1,5 @@
 package com.pt.controller;
 
-import com.pt.model.Board;
 import com.pt.model.FileDTO;
 import com.pt.repository.BoardRepository;
 import com.pt.repository.FileRepository;
@@ -16,8 +15,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor

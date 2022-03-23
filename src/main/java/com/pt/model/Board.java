@@ -10,8 +10,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "board")
-public class Board {
+public class Board{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +33,7 @@ public class Board {
     public void addFile(FileDTO fileDTO) {
         this.files.add(fileDTO);
     }
+
+
 
 }

@@ -33,12 +33,6 @@
                 font-size: 3.5rem;
             }
         }
-        .nana {
-            width: 100%;
-            height: 100%;
-            background-image: url("static/img/img.jpg");
-
-        }
     </style>
 
 
@@ -95,7 +89,7 @@
     <div class="album py-5 bg-light">
         <div class="container">
 
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
                 <div class="col">
                     <div class="card shadow-sm">
 
@@ -119,11 +113,15 @@
                 </div>
 
                 <div>
-                    <div>
-                        제목
+                    <div style="width:100%; height: 20%">
+                        <div> 제목 </div>
+                        <div style="border-style: solid;" th:text="${board.title}"></div>
+
                     </div>
-                    <div>
-                        내용
+                    <div style="width:100%; height: 80%">
+                        <div>내용</div>
+                        <div th:text="${board.contents}"></div>
+
                     </div>
                 </div>
             </div>
